@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import '../../backend/backend.dart';
 
 Future<AppSettingRecord?> appSettingDocument() async {
-  var r = await queryUsersRecordOnce(singleRecord: true);
-  if (r.length == 0) return null;
-  return r[0];
+  var r = await queryAppSettingRecordOnce(singleRecord: true);
+
+  return r;
 }
