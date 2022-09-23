@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1066148411400",
+    "project_id": "ff-project-c3c79",
+    "storage_bucket": "ff-project-c3c79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066148411400:android:b0dcb04f859f96c84af9bd",
+        "android_client_info": {
+          "package_name": "com.gigbox.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066148411400-4vs26ah0vb32raq3qo7oqvv48nc6fbj1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gigbox.app",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "1066148411400-4tk1f8ug5spl3m1srm44vtq5p8ne6anu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZhKq9o3l1rF5lTFtGoT7-o6z8kImyxXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066148411400-4tk1f8ug5spl3m1srm44vtq5p8ne6anu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1066148411400-mr7marqhug5vb23ucqt0lqall7lj4b0v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gigbox.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
