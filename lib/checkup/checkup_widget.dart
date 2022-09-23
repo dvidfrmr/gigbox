@@ -28,7 +28,6 @@ class CheckupWidget extends StatefulWidget {
 
 class _CheckupWidgetState extends State<CheckupWidget> {
   AppSettingRecord? appSettingDoc;
-  AppSettingRecord? secondAppSett;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,7 +36,6 @@ class _CheckupWidgetState extends State<CheckupWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       appSettingDoc = await actions.getAppSetting();
-      secondAppSett = await actions.getAppSetting();
       if (appSettingDoc!.reference != null) {
         if (loggedIn) {
           setState(() => FFAppState().debug = 'Logged in user');
