@@ -2,6 +2,7 @@ import '../a_home/a_home_widget.dart';
 import '../add_information/add_information_widget.dart';
 import '../auth/auth_util.dart';
 import '../auth/firebase_user_provider.dart';
+import '../backend/backend.dart';
 import '../create_venue_1/create_venue1_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -15,7 +16,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class CheckupWidget extends StatefulWidget {
-  const CheckupWidget({Key? key}) : super(key: key);
+  const CheckupWidget({
+    Key? key,
+    this.appSetting,
+  }) : super(key: key);
+
+  final AppSettingRecord? appSetting;
 
   @override
   _CheckupWidgetState createState() => _CheckupWidgetState();
