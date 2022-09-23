@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../home_page/home_page_widget.dart';
 import '../splash/splash_widget.dart';
 import '../v_home/v_home_widget.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,7 @@ class CheckupWidget extends StatefulWidget {
 }
 
 class _CheckupWidgetState extends State<CheckupWidget> {
+  AppSettingRecord? appSetting;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -28,100 +30,146 @@ class _CheckupWidgetState extends State<CheckupWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (loggedIn) {
-        setState(() => FFAppState().debug = 'Logged in user');
-        await Future.delayed(const Duration(milliseconds: 2000));
-      } else {
-        await Navigator.pushAndRemoveUntil(
-          context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            duration: Duration(milliseconds: 250),
-            reverseDuration: Duration(milliseconds: 250),
-            child: SplashWidget(),
-          ),
-          (r) => false,
-        );
-        return;
-      }
+      appSetting = await actions.getAppSetting();
+      if (appSetting!.reference != null) {
+        if (loggedIn) {
+          setState(() => FFAppState().debug = 'Logged in user');
+          await Future.delayed(const Duration(milliseconds: 2000));
+        } else {
+          await Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              duration: Duration(milliseconds: 250),
+              reverseDuration: Duration(milliseconds: 250),
+              child: SplashWidget(
+                appSetting: appSetting,
+              ),
+            ),
+            (r) => false,
+          );
+          return;
+        }
 
-      if (valueOrDefault(currentUserDocument?.role, '') != null &&
-          valueOrDefault(currentUserDocument?.role, '') != '') {
-        setState(() => FFAppState().debug = 'Role is set');
-        await Future.delayed(const Duration(milliseconds: 1000));
-        if (valueOrDefault(currentUserDocument?.role, '') == 'venue') {
-          setState(() => FFAppState().debug = 'Role == venue');
+        if (valueOrDefault(currentUserDocument?.role, '') != null &&
+            valueOrDefault(currentUserDocument?.role, '') != '') {
+          setState(() => FFAppState().debug = 'Role is set');
           await Future.delayed(const Duration(milliseconds: 1000));
-          if (currentUserDocument!.venue.venueRef != null) {
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 250),
-                reverseDuration: Duration(milliseconds: 250),
-                child: VHomeWidget(),
-              ),
-              (r) => false,
-            );
-            return;
+          if (valueOrDefault(currentUserDocument?.role, '') == 'venue') {
+            setState(() => FFAppState().debug = 'Role == venue');
+            await Future.delayed(const Duration(milliseconds: 1000));
+            if (currentUserDocument!.venue.venueRef != null) {
+              await Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  reverseDuration: Duration(milliseconds: 250),
+                  child: VHomeWidget(
+                    appSetting: appSetting,
+                  ),
+                ),
+                (r) => false,
+              );
+              return;
+            } else {
+              await Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  reverseDuration: Duration(milliseconds: 250),
+                  child: CreateVenue1Widget(
+                    appSetting: appSetting,
+                  ),
+                ),
+                (r) => false,
+              );
+              return;
+            }
           } else {
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 250),
-                reverseDuration: Duration(milliseconds: 250),
-                child: CreateVenue1Widget(),
-              ),
-              (r) => false,
-            );
-            return;
+            setState(() => FFAppState().debug = 'Role <> venue');
+            await Future.delayed(const Duration(milliseconds: 1000));
+            if (valueOrDefault(currentUserDocument?.role, '') == 'artist') {
+              setState(() => FFAppState().debug = 'Role == artist');
+              await Future.delayed(const Duration(milliseconds: 1000));
+              await Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  reverseDuration: Duration(milliseconds: 250),
+                  child: AHomeWidget(
+                    appSetting: appSetting,
+                  ),
+                ),
+                (r) => false,
+              );
+              return;
+            } else {
+              setState(() => FFAppState().debug = 'Role == user');
+              await Future.delayed(const Duration(milliseconds: 1000));
+              await Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  reverseDuration: Duration(milliseconds: 250),
+                  child: HomePageWidget(
+                    appSetting: appSetting,
+                  ),
+                ),
+                (r) => false,
+              );
+              return;
+            }
           }
         } else {
-          setState(() => FFAppState().debug = 'Role <> venue');
+          setState(() => FFAppState().debug = 'Role is not set');
           await Future.delayed(const Duration(milliseconds: 1000));
-          if (valueOrDefault(currentUserDocument?.role, '') == 'artist') {
-            setState(() => FFAppState().debug = 'Role == artist');
-            await Future.delayed(const Duration(milliseconds: 1000));
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 250),
-                reverseDuration: Duration(milliseconds: 250),
-                child: AHomeWidget(),
+          await Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              duration: Duration(milliseconds: 250),
+              reverseDuration: Duration(milliseconds: 250),
+              child: AddInformationWidget(
+                appSetting: appSetting,
               ),
-              (r) => false,
-            );
-            return;
-          } else {
-            setState(() => FFAppState().debug = 'Role == user');
-            await Future.delayed(const Duration(milliseconds: 1000));
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                duration: Duration(milliseconds: 250),
-                reverseDuration: Duration(milliseconds: 250),
-                child: HomePageWidget(),
-              ),
-              (r) => false,
-            );
-            return;
-          }
+            ),
+            (r) => false,
+          );
+          return;
         }
       } else {
-        setState(() => FFAppState().debug = 'Role is not set');
-        await Future.delayed(const Duration(milliseconds: 1000));
-        await Navigator.pushAndRemoveUntil(
-          context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            duration: Duration(milliseconds: 250),
-            reverseDuration: Duration(milliseconds: 250),
-            child: AddInformationWidget(),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Can not retrive the app setting!',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryBackground,
+                fontSize: 15,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: Colors.black,
+            action: SnackBarAction(
+              label: 'Retry >',
+              textColor: FlutterFlowTheme.of(context).tertiaryColor,
+              onPressed: () async {
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.fade,
+                    duration: Duration(milliseconds: 250),
+                    reverseDuration: Duration(milliseconds: 250),
+                    child: CheckupWidget(),
+                  ),
+                  (r) => false,
+                );
+              },
+            ),
           ),
-          (r) => false,
         );
         return;
       }

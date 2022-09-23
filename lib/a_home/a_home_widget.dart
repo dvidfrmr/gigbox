@@ -1,3 +1,4 @@
+import '../backend/backend.dart';
 import '../components/header_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -5,7 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AHomeWidget extends StatefulWidget {
-  const AHomeWidget({Key? key}) : super(key: key);
+  const AHomeWidget({
+    Key? key,
+    this.appSetting,
+  }) : super(key: key);
+
+  final AppSettingRecord? appSetting;
 
   @override
   _AHomeWidgetState createState() => _AHomeWidgetState();

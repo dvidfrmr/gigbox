@@ -17,7 +17,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateVenue1Widget extends StatefulWidget {
-  const CreateVenue1Widget({Key? key}) : super(key: key);
+  const CreateVenue1Widget({
+    Key? key,
+    this.appSetting,
+  }) : super(key: key);
+
+  final AppSettingRecord? appSetting;
 
   @override
   _CreateVenue1WidgetState createState() => _CreateVenue1WidgetState();

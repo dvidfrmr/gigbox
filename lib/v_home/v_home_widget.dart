@@ -13,7 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class VHomeWidget extends StatefulWidget {
-  const VHomeWidget({Key? key}) : super(key: key);
+  const VHomeWidget({
+    Key? key,
+    this.appSetting,
+  }) : super(key: key);
+
+  final AppSettingRecord? appSetting;
 
   @override
   _VHomeWidgetState createState() => _VHomeWidgetState();

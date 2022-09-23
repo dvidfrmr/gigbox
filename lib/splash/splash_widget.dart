@@ -1,3 +1,4 @@
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -8,7 +9,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashWidget extends StatefulWidget {
-  const SplashWidget({Key? key}) : super(key: key);
+  const SplashWidget({
+    Key? key,
+    this.appSetting,
+  }) : super(key: key);
+
+  final AppSettingRecord? appSetting;
 
   @override
   _SplashWidgetState createState() => _SplashWidgetState();
