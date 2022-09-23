@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 import '../../backend/backend.dart';
 
-Future<AppSettingRecord?> getAppSetting() async {
+Future<AppSettingRecord?> appSettingDocument() async {
   var r = await queryAppSettingRecordOnce(singleRecord: true);
   if (r.length == 0) return null;
   return r[0];

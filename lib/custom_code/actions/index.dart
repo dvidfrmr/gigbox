@@ -1,1 +1,1 @@
-export 'get_app_setting.dart' show getAppSetting;
+export 'app_setting_document.dart' show appSettingDocument;
