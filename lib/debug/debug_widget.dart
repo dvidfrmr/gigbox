@@ -13,7 +13,7 @@ class DebugWidget extends StatefulWidget {
 }
 
 class _DebugWidgetState extends State<DebugWidget> {
-  AppSettingRecord? appSettingDoc;
+  UsersRecord? appSettingDoc;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -25,7 +25,7 @@ class _DebugWidgetState extends State<DebugWidget> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            appSettingDoc!.brand.name!,
+            appSettingDoc!.displayName!,
             style: TextStyle(
               color: Colors.white,
               fontSize: 15,
