@@ -6,6 +6,7 @@ export '../../flutter_flow/lat_lng.dart';
 export 'structs/act_invite_struct.dart';
 export 'structs/act_request_struct.dart';
 export 'structs/address_struct.dart';
+export 'structs/band_struct.dart';
 export 'structs/brand_struct.dart';
 export 'structs/city_struct.dart';
 export 'structs/default_images_struct.dart';

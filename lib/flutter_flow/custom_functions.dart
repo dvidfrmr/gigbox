@@ -74,3 +74,22 @@ bool bandInvited(
   }
   return false;
 }
+
+bool bandRequests(
+  BandRecord? band,
+  List<ActRequestStruct>? request,
+) {
+  // Add your function code here!
+  if (band == null) {
+    return false;
+  }
+  if (request == null) {
+    return false;
+  }
+  for (var r in request) {
+    if (r.band.toString() == band.toString()) {
+      return true;
+    }
+  }
+  return false;
+}

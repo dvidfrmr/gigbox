@@ -21,6 +21,9 @@ class _$ActRecordSerializer implements StructuredSerializer<ActRecord> {
       'event',
       serializers.serialize(object.event,
           specifiedType: const FullType(EventStruct)),
+      'acceptedBand',
+      serializers.serialize(object.acceptedBand,
+          specifiedType: const FullType(BandStruct)),
     ];
     Object? value;
     value = object.name;
@@ -154,6 +157,10 @@ class _$ActRecordSerializer implements StructuredSerializer<ActRecord> {
                       BuiltList, const [const FullType(ActRequestStruct)]))!
               as BuiltList<Object?>);
           break;
+        case 'acceptedBand':
+          result.acceptedBand.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BandStruct))! as BandStruct);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -189,6 +196,8 @@ class _$ActRecord extends ActRecord {
   @override
   final BuiltList<ActRequestStruct>? requests;
   @override
+  final BandStruct acceptedBand;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ActRecord([void Function(ActRecordBuilder)? updates]) =>
@@ -205,9 +214,12 @@ class _$ActRecord extends ActRecord {
       this.status,
       this.invites,
       this.requests,
+      required this.acceptedBand,
       this.ffRef})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(event, r'ActRecord', 'event');
+    BuiltValueNullFieldError.checkNotNull(
+        acceptedBand, r'ActRecord', 'acceptedBand');
   }
 
   @override
@@ -231,6 +243,7 @@ class _$ActRecord extends ActRecord {
         status == other.status &&
         invites == other.invites &&
         requests == other.requests &&
+        acceptedBand == other.acceptedBand &&
         ffRef == other.ffRef;
   }
 
@@ -245,16 +258,18 @@ class _$ActRecord extends ActRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, name.hashCode),
-                                            startTime.hashCode),
-                                        duration.hashCode),
-                                    description.hashCode),
-                                compensation.hashCode),
-                            loadInTime.hashCode),
-                        event.hashCode),
-                    status.hashCode),
-                invites.hashCode),
-            requests.hashCode),
+                                        $jc(
+                                            $jc($jc(0, name.hashCode),
+                                                startTime.hashCode),
+                                            duration.hashCode),
+                                        description.hashCode),
+                                    compensation.hashCode),
+                                loadInTime.hashCode),
+                            event.hashCode),
+                        status.hashCode),
+                    invites.hashCode),
+                requests.hashCode),
+            acceptedBand.hashCode),
         ffRef.hashCode));
   }
 
@@ -271,6 +286,7 @@ class _$ActRecord extends ActRecord {
           ..add('status', status)
           ..add('invites', invites)
           ..add('requests', requests)
+          ..add('acceptedBand', acceptedBand)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -323,6 +339,12 @@ class ActRecordBuilder implements Builder<ActRecord, ActRecordBuilder> {
   set requests(ListBuilder<ActRequestStruct>? requests) =>
       _$this._requests = requests;
 
+  BandStructBuilder? _acceptedBand;
+  BandStructBuilder get acceptedBand =>
+      _$this._acceptedBand ??= new BandStructBuilder();
+  set acceptedBand(BandStructBuilder? acceptedBand) =>
+      _$this._acceptedBand = acceptedBand;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -344,6 +366,7 @@ class ActRecordBuilder implements Builder<ActRecord, ActRecordBuilder> {
       _status = $v.status;
       _invites = $v.invites?.toBuilder();
       _requests = $v.requests?.toBuilder();
+      _acceptedBand = $v.acceptedBand.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -379,6 +402,7 @@ class ActRecordBuilder implements Builder<ActRecord, ActRecordBuilder> {
               status: status,
               invites: _invites?.build(),
               requests: _requests?.build(),
+              acceptedBand: acceptedBand.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -390,6 +414,8 @@ class ActRecordBuilder implements Builder<ActRecord, ActRecordBuilder> {
         _invites?.build();
         _$failedField = 'requests';
         _requests?.build();
+        _$failedField = 'acceptedBand';
+        acceptedBand.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ActRecord', _$failedField, e.toString());

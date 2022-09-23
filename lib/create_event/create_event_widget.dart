@@ -1348,7 +1348,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                 backToHome: false,
                 background: FlutterFlowTheme.of(context).primaryBackground,
                 showLogoOnTitle: true,
-                noBack: true,
+                noBack: false,
               ),
             ),
           ],

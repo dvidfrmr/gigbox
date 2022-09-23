@@ -16,11 +16,13 @@ class BandInviteWidget extends StatefulWidget {
     this.band,
     this.act,
     this.isRequest,
+    this.appSetting,
   }) : super(key: key);
 
   final BandRecord? band;
   final ActRecord? act;
   final bool? isRequest;
+  final AppSettingRecord? appSetting;
 
   @override
   _BandInviteWidgetState createState() => _BandInviteWidgetState();
@@ -121,62 +123,141 @@ class _BandInviteWidgetState extends State<BandInviteWidget> {
               ),
             ),
             Stack(
-              alignment: AlignmentDirectional(1, 0),
+              alignment: AlignmentDirectional(0, 0),
               children: [
-                if (!functions.bandInvited(widget.band!.reference,
-                        widget.act!.invites!.toList()) &&
-                    (widget.band!.headRef != currentUserReference))
-                  FFButtonWidget(
-                    onPressed: () async {
-                      final actUpdateData = {
-                        'invites': FieldValue.arrayUnion([
-                          getActInviteFirestoreData(
-                            createActInviteStruct(
-                              dateTime: getCurrentTimestamp,
-                              act: widget.act!.reference,
-                              band: widget.band!.reference,
-                              status: 'Invited',
-                              clearUnsetFields: false,
+                if (!widget.isRequest!)
+                  Stack(
+                    alignment: AlignmentDirectional(1, 0),
+                    children: [
+                      if (!functions.bandInvited(widget.band!.reference,
+                              widget.act!.invites!.toList()) &&
+                          (widget.band!.headRef != currentUserReference))
+                        FFButtonWidget(
+                          onPressed: () async {
+                            final actUpdateData = {
+                              'invites': FieldValue.arrayUnion([
+                                getActInviteFirestoreData(
+                                  createActInviteStruct(
+                                    dateTime: getCurrentTimestamp,
+                                    act: widget.act!.reference,
+                                    band: widget.band!.reference,
+                                    status: 'Invited',
+                                    clearUnsetFields: false,
+                                  ),
+                                  true,
+                                )
+                              ]),
+                            };
+                            await widget.act!.reference.update(actUpdateData);
+                          },
+                          text: 'Invite',
+                          options: FFButtonOptions(
+                            width: 60,
+                            height: 32,
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle2.override(
+                                      fontFamily: 'Exo 2',
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
                             ),
-                            true,
-                          )
-                        ]),
-                      };
-                      await widget.act!.reference.update(actUpdateData);
-                    },
-                    text: 'Invite',
-                    options: FFButtonOptions(
-                      width: 60,
-                      height: 32,
-                      color: FlutterFlowTheme.of(context).primaryColor,
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Exo 2',
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.normal,
-                              ),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(3),
-                    ),
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                        ),
+                      if (functions.bandInvited(widget.band!.reference,
+                          widget.act!.invites!.toList()))
+                        Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.check_sharp,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            size: 18,
+                          ),
+                        ),
+                    ],
                   ),
-                if (functions.bandInvited(
-                    widget.band!.reference, widget.act!.invites!.toList()))
-                  Container(
-                    width: 25,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).tertiaryColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.check_sharp,
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      size: 18,
-                    ),
+                if (widget.isRequest ?? true)
+                  Stack(
+                    alignment: AlignmentDirectional(1, 0),
+                    children: [
+                      if (!functions.bandRequests(
+                              widget.band, widget.act!.requests!.toList()) &&
+                          (widget.band!.headRef != currentUserReference))
+                        FFButtonWidget(
+                          onPressed: () async {
+                            final actUpdateData = {
+                              'invites': FieldValue.arrayUnion([
+                                getActInviteFirestoreData(
+                                  createActInviteStruct(
+                                    dateTime: getCurrentTimestamp,
+                                    act: widget.act!.reference,
+                                    band: widget.band!.reference,
+                                    status: 'Invited',
+                                    clearUnsetFields: false,
+                                  ),
+                                  true,
+                                )
+                              ]),
+                            };
+                            await widget.act!.reference.update(actUpdateData);
+                          },
+                          text: 'Accept',
+                          options: FFButtonOptions(
+                            width: 60,
+                            height: 32,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .subtitle2
+                                .override(
+                                  fontFamily: 'Exo 2',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                        ),
+                      if (functions.bandRequests(
+                          widget.band, widget.act!.requests!.toList()))
+                        Container(
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            borderRadius: BorderRadius.circular(4),
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child: Text(
+                              'Accepted',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Exo 2',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                  ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
               ],
             ),

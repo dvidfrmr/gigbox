@@ -771,90 +771,194 @@ class _BandDetailWidgetState extends State<BandDetailWidget> {
                         color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       alignment: AlignmentDirectional(0, -1),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          if (!functions.bandInvited(
-                              widget.band, widget.act!.invites!.toList()))
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 8, 20, 0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    final actUpdateData = {
-                                      'invites': FieldValue.arrayUnion([
-                                        getActInviteFirestoreData(
-                                          createActInviteStruct(
-                                            dateTime: getCurrentTimestamp,
-                                            act: widget.act!.reference,
-                                            band: widget.band,
-                                            status: 'Invited',
-                                            clearUnsetFields: false,
-                                          ),
-                                          true,
-                                        )
-                                      ]),
-                                    };
-                                    await widget.act!.reference
-                                        .update(actUpdateData);
-                                  },
-                                  text: 'Invite to Lineup',
-                                  options: FFButtonOptions(
-                                    width: 100,
-                                    height: 60,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
-                                          fontFamily: 'Exo 2',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          if (functions.bandInvited(
-                              widget.band, widget.act!.invites!.toList()))
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 8, 20, 0),
-                                child: FFButtonWidget(
-                                  onPressed: () {
-                                    print('invite pressed ...');
-                                  },
-                                  text: 'Invited',
-                                  options: FFButtonOptions(
-                                    width: 100,
-                                    height: 60,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
-                                          fontFamily: 'Exo 2',
+                      child: Container(
+                        width: double.infinity,
+                        child: Stack(
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                if (!functions.bandInvited(
+                                    widget.band, widget.act!.invites!.toList()))
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 8, 20, 0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          final actUpdateData = {
+                                            'invites': FieldValue.arrayUnion([
+                                              getActInviteFirestoreData(
+                                                createActInviteStruct(
+                                                  dateTime: getCurrentTimestamp,
+                                                  act: widget.act!.reference,
+                                                  band: widget.band,
+                                                  status: 'Invited',
+                                                  clearUnsetFields: false,
+                                                ),
+                                                true,
+                                              )
+                                            ]),
+                                          };
+                                          await widget.act!.reference
+                                              .update(actUpdateData);
+                                          Navigator.pop(context);
+                                        },
+                                        text: 'Invite to Lineup',
+                                        options: FFButtonOptions(
+                                          width: 100,
+                                          height: 60,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryColor,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Exo 2',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                              ),
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      width: 2,
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                ),
-                              ),
+                                if (functions.bandInvited(
+                                    widget.band, widget.act!.invites!.toList()))
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 8, 20, 0),
+                                      child: FFButtonWidget(
+                                        onPressed: () {
+                                          print('invited pressed ...');
+                                        },
+                                        text: 'Invited',
+                                        options: FFButtonOptions(
+                                          width: 100,
+                                          height: 60,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Exo 2',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                              ),
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
-                        ],
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                if (!functions.bandRequests(
+                                    bandDetailBandRecord,
+                                    widget.act!.requests!.toList()))
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 8, 20, 0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          final actUpdateData =
+                                              createActRecordData(
+                                            acceptedBand: createBandStruct(
+                                              name: bandDetailBandRecord.name,
+                                              bandRef: bandDetailBandRecord
+                                                  .reference,
+                                              image: bandDetailBandRecord.image,
+                                              type: bandDetailBandRecord.type,
+                                              clearUnsetFields: false,
+                                            ),
+                                          );
+                                          await widget.act!.reference
+                                              .update(actUpdateData);
+                                          Navigator.pop(context);
+                                        },
+                                        text: 'Accept Request',
+                                        options: FFButtonOptions(
+                                          width: 100,
+                                          height: 60,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Exo 2',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                              ),
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                if (widget.act!.acceptedBand.bandRef ==
+                                    widget.band)
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 8, 20, 0),
+                                      child: FFButtonWidget(
+                                        onPressed: () {
+                                          print('Accepted pressed ...');
+                                        },
+                                        text: 'Accepted',
+                                        options: FFButtonOptions(
+                                          width: 100,
+                                          height: 60,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Exo 2',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                              ),
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

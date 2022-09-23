@@ -294,6 +294,7 @@ class _AddBandActWidgetState extends State<AddBandActWidget> {
                                             band: bandItem,
                                             act: widget.act,
                                             isRequest: false,
+                                            appSetting: widget.appSetting,
                                           );
                                         },
                                       );

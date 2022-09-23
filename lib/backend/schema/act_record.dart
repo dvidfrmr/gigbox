@@ -29,6 +29,8 @@ abstract class ActRecord implements Built<ActRecord, ActRecordBuilder> {
 
   BuiltList<ActRequestStruct>? get requests;
 
+  BandStruct get acceptedBand;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -44,7 +46,8 @@ abstract class ActRecord implements Built<ActRecord, ActRecordBuilder> {
     ..event = EventStructBuilder()
     ..status = ''
     ..invites = ListBuilder()
-    ..requests = ListBuilder();
+    ..requests = ListBuilder()
+    ..acceptedBand = BandStructBuilder();
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -80,6 +83,7 @@ Map<String, dynamic> createActRecordData({
   String? loadInTime,
   EventStruct? event,
   String? status,
+  BandStruct? acceptedBand,
 }) {
   final firestoreData = serializers.toFirestore(
     ActRecord.serializer,
@@ -94,12 +98,16 @@ Map<String, dynamic> createActRecordData({
         ..event = EventStructBuilder()
         ..status = status
         ..invites = null
-        ..requests = null,
+        ..requests = null
+        ..acceptedBand = BandStructBuilder(),
     ),
   );
 
   // Handle nested data for "event" field.
   addEventStructData(firestoreData, event, 'event');
+
+  // Handle nested data for "acceptedBand" field.
+  addBandStructData(firestoreData, acceptedBand, 'acceptedBand');
 
   return firestoreData;
 }

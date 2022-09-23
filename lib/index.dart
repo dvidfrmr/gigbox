@@ -21,3 +21,4 @@ export 'event_lineup/event_lineup_widget.dart' show EventLineupWidget;
 export 'create_act/create_act_widget.dart' show CreateActWidget;
 export 'add_band_act/add_band_act_widget.dart' show AddBandActWidget;
 export 'debug/debug_widget.dart' show DebugWidget;
+export 'act_list/act_list_widget.dart' show ActListWidget;

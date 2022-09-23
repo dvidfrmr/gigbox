@@ -38,6 +38,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   ActRequestStruct,
   BrandStruct,
   DefaultImagesStruct,
+  BandStruct,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
