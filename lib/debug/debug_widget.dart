@@ -1,3 +1,4 @@
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../custom_code/actions/index.dart' as actions;
@@ -13,7 +14,7 @@ class DebugWidget extends StatefulWidget {
 }
 
 class _DebugWidgetState extends State<DebugWidget> {
-  UsersRecord? appSettingDoc;
+  AppSettingRecord? appSettingDoc;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -25,7 +26,7 @@ class _DebugWidgetState extends State<DebugWidget> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            appSettingDoc!.displayName!,
+            appSettingDoc!.brand.name!,
             style: TextStyle(
               color: Colors.white,
               fontSize: 15,
@@ -40,33 +41,56 @@ class _DebugWidgetState extends State<DebugWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Page Title',
-          style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'Exo 2',
-                color: Colors.white,
-                fontSize: 22,
+    return FutureBuilder<List<AppSettingRecord>>(
+      future: queryAppSettingRecordOnce(
+        singleRecord: true,
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(
+                color: FlutterFlowTheme.of(context).primaryColor,
               ),
-        ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2,
-      ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [],
+            ),
+          );
+        }
+        List<AppSettingRecord> debugAppSettingRecordList = snapshot.data!;
+        final debugAppSettingRecord = debugAppSettingRecordList.isNotEmpty
+            ? debugAppSettingRecordList.first
+            : null;
+        return Scaffold(
+          key: scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            automaticallyImplyLeading: false,
+            title: Text(
+              'Page Title',
+              style: FlutterFlowTheme.of(context).title2.override(
+                    fontFamily: 'Exo 2',
+                    color: Colors.white,
+                    fontSize: 22,
+                  ),
+            ),
+            actions: [],
+            centerTitle: false,
+            elevation: 2,
           ),
-        ),
-      ),
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          body: SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
