@@ -10,6 +10,6 @@ import '../../backend/backend.dart';
 
 Future<AppSettingRecord?> appSettingDocument() async {
   var r = await queryAppSettingRecordOnce(singleRecord: true);
-
-  return r;
+  if (r.length == 0) return null;
+  return r[0];
 }
