@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
             )
           : currentUser!.loggedIn
               ? CheckupWidget()
-              : DebugWidget(),
+              : SplashWidget(),
     );
   }
 }
