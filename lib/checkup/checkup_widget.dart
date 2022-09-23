@@ -22,7 +22,7 @@ class CheckupWidget extends StatefulWidget {
 }
 
 class _CheckupWidgetState extends State<CheckupWidget> {
-  AppSettingRecord? appSetting;
+  AppSettingRecord? appSettingDoc;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,8 +30,8 @@ class _CheckupWidgetState extends State<CheckupWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      appSetting = await actions.getAppSetting();
-      if (appSetting!.reference != null) {
+      appSettingDoc = await actions.getAppSetting();
+      if (appSettingDoc!.reference != null) {
         if (loggedIn) {
           setState(() => FFAppState().debug = 'Logged in user');
           await Future.delayed(const Duration(milliseconds: 2000));
@@ -43,7 +43,7 @@ class _CheckupWidgetState extends State<CheckupWidget> {
               duration: Duration(milliseconds: 250),
               reverseDuration: Duration(milliseconds: 250),
               child: SplashWidget(
-                appSetting: appSetting,
+                appSetting: appSettingDoc,
               ),
             ),
             (r) => false,
@@ -66,7 +66,7 @@ class _CheckupWidgetState extends State<CheckupWidget> {
                   duration: Duration(milliseconds: 250),
                   reverseDuration: Duration(milliseconds: 250),
                   child: VHomeWidget(
-                    appSetting: appSetting,
+                    appSetting: appSettingDoc,
                   ),
                 ),
                 (r) => false,
@@ -80,7 +80,7 @@ class _CheckupWidgetState extends State<CheckupWidget> {
                   duration: Duration(milliseconds: 250),
                   reverseDuration: Duration(milliseconds: 250),
                   child: CreateVenue1Widget(
-                    appSetting: appSetting,
+                    appSetting: appSettingDoc,
                   ),
                 ),
                 (r) => false,
@@ -100,7 +100,7 @@ class _CheckupWidgetState extends State<CheckupWidget> {
                   duration: Duration(milliseconds: 250),
                   reverseDuration: Duration(milliseconds: 250),
                   child: AHomeWidget(
-                    appSetting: appSetting,
+                    appSetting: appSettingDoc,
                   ),
                 ),
                 (r) => false,
@@ -116,7 +116,7 @@ class _CheckupWidgetState extends State<CheckupWidget> {
                   duration: Duration(milliseconds: 250),
                   reverseDuration: Duration(milliseconds: 250),
                   child: HomePageWidget(
-                    appSetting: appSetting,
+                    appSetting: appSettingDoc,
                   ),
                 ),
                 (r) => false,
@@ -134,7 +134,7 @@ class _CheckupWidgetState extends State<CheckupWidget> {
               duration: Duration(milliseconds: 250),
               reverseDuration: Duration(milliseconds: 250),
               child: AddInformationWidget(
-                appSetting: appSetting,
+                appSetting: appSettingDoc,
               ),
             ),
             (r) => false,
