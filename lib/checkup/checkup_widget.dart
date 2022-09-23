@@ -3,6 +3,7 @@ import '../add_information/add_information_widget.dart';
 import '../auth/auth_util.dart';
 import '../auth/firebase_user_provider.dart';
 import '../create_venue_1/create_venue1_widget.dart';
+import '../debug/debug_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../home_page/home_page_widget.dart';
@@ -158,7 +159,7 @@ class _CheckupWidgetState extends State<CheckupWidget> {
                           type: PageTransitionType.fade,
                           duration: Duration(milliseconds: 250),
                           reverseDuration: Duration(milliseconds: 250),
-                          child: SplashWidget(),
+                          child: DebugWidget(),
                         ),
                         (r) => false,
                       );

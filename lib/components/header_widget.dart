@@ -1,10 +1,10 @@
 import '../a_home/a_home_widget.dart';
 import '../auth/auth_util.dart';
+import '../debug/debug_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../home_page/home_page_widget.dart';
-import '../splash/splash_widget.dart';
 import '../v_home/v_home_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -77,7 +77,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             type: PageTransitionType.fade,
                             duration: Duration(milliseconds: 250),
                             reverseDuration: Duration(milliseconds: 250),
-                            child: SplashWidget(),
+                            child: DebugWidget(),
                           ),
                           (r) => false,
                         );
