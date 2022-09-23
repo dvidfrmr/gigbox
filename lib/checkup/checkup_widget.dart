@@ -15,7 +15,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class CheckupWidget extends StatefulWidget {
-  const CheckupWidget({Key? key}) : super(key: key);
+  const CheckupWidget({
+    Key? key,
+    this.test,
+  }) : super(key: key);
+
+  final String? test;
 
   @override
   _CheckupWidgetState createState() => _CheckupWidgetState();
