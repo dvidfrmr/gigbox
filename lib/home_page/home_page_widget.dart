@@ -6,7 +6,9 @@ import '../event_detail/event_detail_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -17,12 +19,32 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  TextEditingController? tfSearchController;
+  AppSettingRecord? appSetting;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController? tfSearchController;
 
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      appSetting = await actions.getAppSetting();
+      if (appSetting!.reference != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'ss',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: Color(0x00000000),
+          ),
+        );
+      }
+    });
+
     tfSearchController = TextEditingController();
   }
 
